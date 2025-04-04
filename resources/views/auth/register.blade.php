@@ -13,12 +13,11 @@
                             <span class="app-brand-logo demo">
                                 <!-- Sneat Logo SVG Here -->
                             </span>
-                            <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
+                              <!-- /Logo -->
+                    <h2 class="mb-2">Medicine Inventory System</h2>
                         </a>
                     </div>
-                    <!-- /Logo -->
-                    <h4 class="mb-2">Adventure starts here 🚀</h4>
-                    <p class="mb-4">Make your app management easy and fun!</p>
+
 
                     <!-- Registration Form -->
                     <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('register') }}">
