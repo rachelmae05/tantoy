@@ -89,16 +89,27 @@
 
 @section('styles')
 <style>
+    /* Updated background color and gradient */
+    body {
+        background-color: #f0f4f8; /* Light grey background for a clean look */
+        height: 100vh;
+        margin: 0;
+    }
+
     .authentication-wrapper {
-        background: #f8f9fa;
         padding: 50px 0;
+        min-height: 100vh; /* Ensure the background stretches to full height */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .card {
         max-width: 400px;
         margin: 0 auto;
-        background-color: #fff;
+        background-color: #ffffff;
         border-radius: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .card-body {
@@ -127,6 +138,11 @@
         transition: all 0.3s ease-in-out;
     }
 
+    .btn-primary {
+        background-color: #696cff;
+        border-color: #696cff;
+    }
+
     .btn-primary:hover {
         background-color: #5c61f4;
         border-color: #5c61f4;
@@ -150,10 +166,6 @@
 
     .text-primary {
         color: #696cff !important;
-    }
-
-    .mb-4 {
-        margin-bottom: 1.5rem;
     }
 
     .small {
