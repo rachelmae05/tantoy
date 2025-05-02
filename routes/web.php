@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AdminController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +24,10 @@ Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function() : void{
-    Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
+Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function() {
+    Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('index');
+});
+
+Route::group(['prefix' => 'user', 'middleware' => ['user']], function() {
+    Route::get('/', [App\Http\Controllers\User\UserController::class, 'index'])->name('index');
 });
