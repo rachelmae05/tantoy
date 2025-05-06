@@ -10,7 +10,7 @@
             <div class="card-body">
               <h5 class="card-title text-primary">Welcome {{ Auth::user()->name }}! </h5>
               <p class="mb-4">
-                Thank you for logging in Admin!!
+                Thank you for logging in User!!
               </p>
             </div>
           </div>

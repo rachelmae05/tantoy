@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class role extends Model
+class Role extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'url', ];
+    protected $fillable = ['role_name', 'url', ];
 
     public function users()
     {

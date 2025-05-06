@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\AdminController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,13 +19,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function() {
-    Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('index');
+//admin routes
+Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
+    Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.index');
 });
 
-Route::group(['prefix' => 'user', 'middleware' => ['user']], function() {
-    Route::get('/', [App\Http\Controllers\User\UserController::class, 'index'])->name('index');
+
+//user routes
+Route::group(['prefix' => 'user', 'middleware' => ['user']], function () {
+    Route::get('/', [App\Http\Controllers\User\UserController::class, 'index'])->name('user.index');
 });
