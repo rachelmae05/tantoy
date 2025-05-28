@@ -1,43 +1,41 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Medicine Dashboard')
+@section('title', 'Manage Medicines')
 
 @section('content')
 <div class="container mt-5">
-    <h2 class="mb-4">Medicine Inventory Dashboard</h2>
+    <h2 class="mb-4">Medicine Inventory Management</h2>
 
     <!-- Flash Message -->
-    @if (session('success'))
+    @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
-    <!-- Search + Create Button -->
+    <!-- Search & Add -->
     <div class="d-flex justify-content-between mb-3">
-        <form action="{{ route('admin.dashboard') }}" method="GET" class="d-flex" role="search">
+        <form action="{{ route('admin.medicines.index') }}" method="GET" class="d-flex">
             <input type="text" name="search" class="form-control me-2" placeholder="Search by name or brand" value="{{ request('search') }}">
-            <button type="submit" class="btn btn-outline-primary me-2">Search</button>
+            <button type="submit" class="btn btn-outline-primary">Search</button>
             @if(request('search'))
-                <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary">Clear</a>
+                <a href="{{ route('admin.medicines.index') }}" class="btn btn-outline-secondary ms-2">Clear</a>
             @endif
         </form>
-
-        <!-- Create Button -->
-        <a href="{{ route('admin.medicines.create') }}" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Create Medicine
+        <a href="{{ route('admin.medicines.create') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Add New Medicine
         </a>
     </div>
 
-    <!-- Medicines Table -->
+    <!-- Medicine Table -->
     <div class="card">
         <div class="card-body">
-            @if ($medicines->isEmpty())
+            @if($medicines->isEmpty())
                 <p class="text-muted">No medicines found.</p>
             @else
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover align-middle text-center">
+                    <table class="table table-bordered table-striped align-middle">
                         <thead class="table-light">
                             <tr>
                                 <th>ID</th>
@@ -49,26 +47,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($medicines as $medicine)
+                            @foreach($medicines as $medicine)
                                 <tr>
                                     <td>{{ $medicine->id }}</td>
                                     <td>{{ $medicine->name }}</td>
-                                    <td>{{ $medicine->brand ?? '-' }}</td>
+                                    <td>{{ $medicine->brand }}</td>
                                     <td>{{ $medicine->quantity }}</td>
                                     <td>{{ \Carbon\Carbon::parse($medicine->expiry_date)->format('M d, Y') }}</td>
                                     <td>
-                                        <!-- Read/View Button -->
-                                        <a href="{{ route('admin.medicines.show', $medicine->id) }}" class="btn btn-sm btn-info me-1" title="View">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-
-                                        <!-- Update/Edit Button -->
-                                        <a href="{{ route('admin.medicines.edit', $medicine->id) }}" class="btn btn-sm btn-warning me-1" title="Edit">
+                                        <a href="{{ route('admin.medicines.edit', $medicine->id) }}" class="btn btn-sm btn-warning" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-
-                                        <!-- Delete Button -->
-                                        <form action="{{ route('admin.medicines.destroy', $medicine->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this medicine?');">
+                                        <form action="{{ route('admin.medicines.destroy', $medicine->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this medicine?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" title="Delete">
@@ -84,20 +74,10 @@
 
                 <!-- Pagination -->
                 <div class="mt-3">
-                    {{ $medicines->withQueryString()->links() }}
+                    {{ $medicines->links() }}
                 </div>
             @endif
         </div>
     </div>
 </div>
-
-<!-- Tooltips -->
-@push('scripts')
-<script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
-    tooltipTriggerList.forEach(function (el) {
-        new bootstrap.Tooltip(el);
-    });
-</script>
-@endpush
 @endsection

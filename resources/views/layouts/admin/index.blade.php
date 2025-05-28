@@ -57,10 +57,10 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-        @include('layouts.user._sidebar')
+        @include('layouts.admin._sidebar')
         <!-- Layout container -->
         <div class="layout-page">
-          @include('layouts.user._topnavbar')
+          @include('layouts.admin._topnavbar')
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
@@ -74,9 +74,10 @@
 
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
+      
     </div>
     <!-- / Layout wrapper -->
-
+    @include('layouts.admin._footer')
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js')}}"></script>

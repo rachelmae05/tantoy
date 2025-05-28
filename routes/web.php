@@ -1,33 +1,27 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminMedicineController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Admin\MedicineController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+Route::get('/', fn () => redirect()->route('login'));
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-//admin routes
-Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
-    Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.index');
+// Admin Routes
+Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
+    Route::get('/', fn () => redirect()->route('admin.dashboard'));
+    Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('medicines', MedicineController::class);
 });
 
-
-//user routes
-Route::group(['prefix' => 'user', 'middleware' => ['user']], function () {
-    Route::get('/', [App\Http\Controllers\User\UserController::class, 'index'])->name('user.index');
+// User Routes
+Route::prefix('user')->name('user.')->middleware('user')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('index');
 });
