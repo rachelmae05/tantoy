@@ -11,8 +11,7 @@ class Medicine extends Model
 
     protected $fillable = [
         'name',
-        'brand',
         'quantity',
-        'expiry_date',
+        'price',
     ];
 }

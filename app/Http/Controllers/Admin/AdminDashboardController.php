@@ -14,7 +14,7 @@ class AdminDashboardController extends Controller
 
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('brand', 'like', '%' . $request->search . '%');
+                  ->orWhere('price', 'like', '%' . $request->search . '%');
         }
 
         $medicines = $query->latest()->paginate(10);

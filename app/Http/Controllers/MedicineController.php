@@ -50,10 +50,11 @@ class MedicineController extends Controller
         return redirect()->route('admin.medicines.index')->with('success', 'Medicine updated successfully.');
     }
 
-    public function destroy(Medicine $medicine)
+       public function destroy(Medicine $medicine)
     {
         $medicine->delete();
 
         return redirect()->route('admin.medicines.index')->with('success', 'Medicine deleted successfully.');
     }
+
 }

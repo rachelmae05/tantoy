@@ -16,7 +16,7 @@ class MedicineController extends Controller
             $query->where('name', 'like', "%{$search}%");
         }
 
-        $medicines = $query->orderBy('id', 'desc')->paginate(10);
+        $medicines = $query->orderBy('id', 'asc')->paginate(10);
 
         return view('admin.medicines.index', compact('medicines'));
     }
@@ -65,7 +65,7 @@ class MedicineController extends Controller
         return redirect()->route('admin.medicines.index')->with('success', 'Medicine updated successfully.');
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $medicine = Medicine::findOrFail($id);
         $medicine->delete();
